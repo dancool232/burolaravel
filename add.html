@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="public/css/materialize.css">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+
+    <nav class="blue-grey">
+        <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="large material-icons">menu</i></a>
+    </nav>
+
+    <ul id="slide-out" class="sidenav">
+        <li><a href="found.html">Найдено</a></li>
+        <li>
+            <div class="divider"></div>
+        </li>
+        <li><a href="lost.html">Потеряно</a></li>
+        <li>
+            <div class="divider"></div>
+        </li>
+        <li><a href="index.html">Главная</a></li>
+    </ul>
+    <input type="text" id="title" class="input1" placeholder="Заголовок" v>
+    <input type="text" id="desc" class="input2" placeholder="Описание">
+    <input type="text" id="contact" class="input3" placeholder="Контакты">
+    <div class="input-field col s12">
+        <select id="sel">
+          <option value="" disabled selected>Выберите</option>
+          <option value="0">Потеряно</option>
+          <option value="1">Найдено</option>
+        </select>
+    </div>
+    <button class="btn">Отправить</button>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.sidenav').sidenav();
+        });
+
+        $(document).ready(function() {
+            $('select').formSelect();
+        });
+
+    </script>
+    <script>
+        var sel = document.getElementById("sel"); // Получаем наш список
+        var val = sel.options[sel.selectedIndex].value;
+        var input1 = document.querySelector('.input1');
+        var input2 = document.querySelector('.input2');
+        var input3 = document.querySelector('.input3');
+        var btn = document.querySelector('.btn');
+        var i = 0;
+        btn.onclick = function() {
+            $.ajax({
+                url: "http://127.0.0.1:8000/add",
+                data: {
+                    key1: input1.value,
+                    key2: input2.value,
+                    key3: input3.value,
+                    key4: $("#sel").val(),
+                    key5: 0,
+                },
+                success: function(arg) {
+                    console.log(arg)
+                }
+            })
+        };
+
+    </script>
+</body>
+
+</html>
